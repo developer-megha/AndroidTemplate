@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="grey">#959595</color>
+
+    <color name="primary_tint">#3B933F</color>
+    <color name="secondary_tint">#3B933F</color>
+    <color name="progress_tint">@color/white</color>
+    <color name="text_tint">@color/black</color>
+    <color name="button_text_tint">@color/white</color>
+    <color name="stroke_tint">@color/primary_tint</color>
+    <color name="icons_tint">@color/black</color>
+    <color name="toolbar_bg">@color/white</color>
+
+</resources>

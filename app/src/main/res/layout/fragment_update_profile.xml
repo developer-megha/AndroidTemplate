@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="com.android.template.userAction.profile.viewmodel.ProfileVM" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".dashboard.updateProfile.ui.UpdateProfileActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/smallPadding"
+                android:paddingEnd="@dimen/padding">
+
+                <TextView
+                    style="@style/TextViewHeading"
+                    android:layout_centerInParent="true"
+                    android:text="@string/profile" />
+
+                <ImageView
+                    android:id="@+id/buttonBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/smallPadding"
+                    android:src="@drawable/ic_back" />
+
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/appBar"
+            android:background="@color/white"
+            android:fillViewport="true"
+            android:scrollbars="none">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rlEditProfile"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+                <RelativeLayout
+                    android:id="@+id/layoutFields"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profileImage"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_100sdp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/error_image"
+                        app:civ_border_color="@color/white"
+                        app:civ_border_width="@dimen/_2sdp" />
+
+                    <RelativeLayout
+                        android:id="@+id/choose_image"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:background="@drawable/bg_circle_white"
+                        android:layout_alignEnd="@+id/profileImage"
+                        android:layout_alignBottom="@+id/profileImage"
+                        android:layout_marginEnd="-8dp"
+                        android:layout_marginBottom="21dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_camera"
+                            android:layout_centerInParent="true"/>
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llUser"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/choose_image"
+                        android:layout_marginTop="@dimen/margin"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilFirstName"
+                            style="@style/TextInputLayoutStyle"
+                            android:layout_weight="1"
+                            setError="@{viewModel.isValidFName}"
+                            android:layout_marginStart="@dimen/smallMargin"
+                            android:layout_marginEnd="@dimen/minMargin">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etFirstName"
+                                style="@style/EditTextStyle"
+                                android:hint="@string/first_name"
+                                android:imeOptions="actionNext"
+                                android:maxLength="15"
+                                android:inputType="textPersonName"
+                                android:text="@={viewModel.firstName}" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tilLastName"
+                            style="@style/TextInputLayoutStyle"
+                            android:layout_weight="1"
+                            setError="@{viewModel.isValidLName}"
+                            android:layout_marginStart="@dimen/minMargin"
+                            android:layout_marginEnd="@dimen/smallMargin">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etLastName"
+                                style="@style/EditTextStyle"
+                                android:hint="@string/last_name"
+                                android:maxLength="15"
+                                android:imeOptions="actionNext"
+                                android:inputType="textPersonName"
+                                android:text="@={viewModel.lastName}"/>
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilEmailProfile"
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_below="@id/llUser"
+                        android:layout_marginStart="@dimen/smallMargin"
+                        android:layout_marginTop="@dimen/margin"
+                        android:layout_marginEnd="@dimen/smallMargin">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etEmailProfile"
+                            style="@style/EditTextStyle"
+                            android:editable="false"
+                            android:hint="@string/email"
+                            android:imeOptions="actionDone"
+                            android:text="@={viewModel.email}"
+                            android:maxLines="1"
+                            tools:ignore="Deprecated" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilPhoneProfile"
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_below="@id/tilEmailProfile"
+                        android:layout_marginTop="@dimen/margin"
+                        android:layout_marginStart="@dimen/smallMargin"
+                        android:layout_marginEnd="@dimen/smallMargin">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etPhoneProfile"
+                            style="@style/EditTextStyle"
+                            android:hint="@string/mobile_number"
+                            android:maxLength="30"
+                            android:imeOptions="actionNext"
+                            android:text="@={viewModel.phone}"
+                            android:inputType="phone" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilLocationProfile"
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_below="@id/tilPhoneProfile"
+                        android:layout_marginTop="@dimen/margin"
+                        setError="@{viewModel.isValidLocation}"
+                        android:layout_marginStart="@dimen/smallMargin"
+                        android:layout_marginEnd="@dimen/smallMargin">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etLocationProfile"
+                            style="@style/EditTextStyle"
+                            android:hint="@string/location"
+                            android:maxLength="30"
+                            android:text="@={viewModel.location}"
+                            android:imeOptions="actionNext" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilAboutProfile"
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_below="@id/tilLocationProfile"
+                        android:layout_marginTop="@dimen/margin"
+                        android:layout_marginStart="@dimen/smallMargin"
+                        android:layout_marginEnd="@dimen/smallMargin">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etAboutProfile"
+                            style="@style/EditTextStyle"
+                            android:hint="@string/about_yourself"
+                            android:maxLength="100"
+                            android:text="@={viewModel.about}"
+                            android:imeOptions="actionNext" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </RelativeLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonSave"
+                    style="@style/ButtonStyle"
+                    android:layout_marginHorizontal="@dimen/maxMargin"
+                    android:layout_marginVertical="@dimen/margin"
+                    android:text="@string/save"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutFields"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+</layout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/smallPadding"
+    android:layout_marginTop="@dimen/margin"
+    android:layout_marginBottom="@dimen/margin"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:id="@+id/rlProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/_10sdp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileImageNavDrawer"
+            android:layout_width="@dimen/_55sdp"
+            android:layout_height="@dimen/_55sdp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/smallMargin"
+        android:layout_marginEnd="@dimen/smallMargin"
+        android:layout_toStartOf="@+id/layoutEdit"
+        android:layout_toEndOf="@+id/rlProfile">
+
+        <TextView
+            android:id="@+id/tvNameNavDrawer"
+            style="@style/TextViewSubHeading"
+            android:maxLines="1" />
+
+        <TextView
+            android:id="@+id/tvAboutNavDrawer"
+            style="@style/TextViewContent"
+            android:layout_below="@id/tvNameNavDrawer"
+            android:maxLines="2"
+            android:ellipsize="end" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_55sdp"
+        android:layout_alignParentEnd="true">
+
+        <ImageView
+            android:id="@+id/ivEditNavDrawer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_edit" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            style="@style/MyToolbar"
+            app:title="Dashboard"
+            android:layout_gravity="center_horizontal"
+            app:navigationIcon="@drawable/ic_menu">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/margin">
+
+                <ImageView
+                    android:id="@+id/icNotification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_bell" />
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tvNotification"-->
+<!--                    android:layout_width="@dimen/_12sdp"-->
+<!--                    android:layout_height="@dimen/_12sdp"-->
+<!--                    android:layout_alignEnd="@+id/ic_notification"-->
+<!--                    android:background="@drawable/notification_text_background"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="99"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="@dimen/_8ssp"-->
+<!--                    android:visibility="visible" />-->
+
+            </RelativeLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/appBarLayout"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

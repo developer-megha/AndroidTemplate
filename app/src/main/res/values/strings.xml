@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">MyApplication</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="log_in">Log In</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="don_t_have_an_account">Don\'t have an account? <b>SignUp</b></string>
+    <string name="sign_up">Sign Up</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="you_have_an_account">You have an account? <b>Log In</b></string>
+    <string name="reset_your_password">Please enter your registered email or mobile to reset your password.</string>
+    <string name="send">Send</string>
+    <string name="forgot_password2">Forgot Password</string>
+    <string name="profile">Profile</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="location">Location</string>
+    <string name="about_yourself">Tell something about yourself</string>
+    <string name="save">Save</string>
+    <string name="title_permission">Permission</string>
+    <string name="change_password">Change Password</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="update_password">Update Password</string>
+    <string name="check_your_internet_connection_and_try_again">Check your internet connection and try Again</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="retry">Retry</string>
+    <string name="temporary_description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="title">Title</string>
+    <string name="message">Message</string>
+    <string name="notifications">Notifications</string>
+    <string name="logout">Logout</string>
+    <string name="title_membership">I am ready to Launch my Business</string>
+    <string name="confirm_your_purchase">Confirm your Purchase</string>
+    <string name="no_items_available">No items available</string>
+    <string name="msg_membership_expired">Your Membership was expired on </string>
+
+    <!--    Facebook SignIn-->
+    <string name="facebook_app_id">582130936214915</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">2cbad6d7dead7f5eea9433744f28b8e8</string>
+
+</resources>

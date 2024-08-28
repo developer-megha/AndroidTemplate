@@ -1,0 +1,82 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.AndroidTemplate" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary_tint</item>
+        <item name="colorPrimaryVariant">@color/primary_tint</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondary_tint</item>
+        <item name="colorSecondaryVariant">@color/secondary_tint</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.AndroidTemplate" parent="Base.Theme.AndroidTemplate" />
+
+    <!-- Style for TextView -->
+    <style name="TextViewHeading" parent="android:Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_tint</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/normalTextSize</item>
+    </style>
+
+    <style name="TextViewSubHeading" parent="android:Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_tint</item>
+        <item name="android:textSize">@dimen/medTextSize</item>
+    </style>
+
+    <style name="TextViewContent" parent="android:Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_tint</item>
+        <item name="android:textSize">@dimen/smallTextSize</item>
+    </style>
+
+    <!-- Style for Button -->
+    <style name="ButtonStyle" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:paddingTop">@dimen/_2sdp</item>
+        <item name="android:paddingBottom">@dimen/_2sdp</item>
+        <item name="android:background">@drawable/bg_button</item>
+        <item name="android:textSize">@dimen/smallTextSize</item>
+    </style>
+
+    <!-- Style for TextInputLayout -->
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="boxStrokeColor">@color/stroke_tint</item>
+        <item name="hintTextColor">@color/grey</item>
+        <item name="android:textSize">@dimen/smallTextSize</item>
+    </style>
+
+    <!-- Style for EditText -->
+    <style name="EditTextStyle" parent="TextAppearance.AppCompat.Small.Inverse">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="hintTextColor">@color/grey</item>
+        <item name="android:textColor">@color/text_tint</item>
+        <item name="android:textSize">@dimen/smallTextSize</item>
+    </style>
+
+    <!-- Style for Toolbar Text-->
+    <style name="MyToolbar" parent="Widget.MaterialComponents.TabLayout">
+        <item name="titleTextAppearance">@style/TextAppearance.MaterialComponents.Headline6</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/normalTextSize</item>
+        <item name="titleTextColor">@color/text_tint</item>
+        <item name="background">@color/toolbar_bg</item>
+        <item name="titleCentered">true</item>
+    </style>
+
+</resources>
