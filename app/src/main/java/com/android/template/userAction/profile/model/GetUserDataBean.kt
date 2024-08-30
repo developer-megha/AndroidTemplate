@@ -3,54 +3,54 @@ package com.android.template.userAction.profile.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ProfileBean(
+data class GetUserDataBean(
     @SerializedName("status")
-    val status: String,
+    val status: String?,
     @SerializedName("message")
-    val message: String,
+    val message: String?,
     @SerializedName("data")
-    val `data`: Data
+    val `data`: Data?
 ) {
     data class Data(
         @SerializedName("id")
-        val id: Int,
+        val id: Int?,
         @SerializedName("active_status")
-        val activeStatus: Int,
+        val activeStatus: Int?,
         @SerializedName("first_name")
-        val firstName: String,
+        val firstName: String?,
         @SerializedName("last_name")
-        val lastName: String,
+        val lastName: String?,
         @SerializedName("register_type")
-        val registerType: String,
+        val registerType: String?,
         @SerializedName("name")
-        val name: String,
+        val name: String?,
         @SerializedName("email")
-        val email: String,
+        val email: String?,
         @SerializedName("email_verified_at")
-        val emailVerifiedAt: Any,
+        val emailVerifiedAt: Any?,
         @SerializedName("phone")
-        val phone: Any,
+        val phone: String?,
         @SerializedName("location")
-        val location: String,
+        val location: String?,
         @SerializedName("fcm_token")
-        val fcmToken: Any,
+        val fcmToken: Any?,
         @SerializedName("socialLogID")
-        val socialLogID: Any,
+        val socialLogID: Any?,
         @SerializedName("image_path")
-        val imagePath: String,
+        val imagePath: String?,
         @SerializedName("registration_number")
-        val registrationNumber: Any,
+        val registrationNumber: Any?,
         @SerializedName("device_type")
-        val deviceType: String,
+        val deviceType: String?,
         @SerializedName("about_user")
-        val aboutUser: String,
+        val aboutUser: String?,
         @SerializedName("last_updated_by")
-        val lastUpdatedBy: Int,
+        val lastUpdatedBy: Int?,
         @SerializedName("created_at")
-        val createdAt: String,
+        val createdAt: String?,
         @SerializedName("updated_at")
-        val updatedAt: String,
+        val updatedAt: String?,
         @SerializedName("user_role")
-        val userRole: Int
+        val userRole: Int?
     )
 }

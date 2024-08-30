@@ -10,7 +10,7 @@ import com.android.template.network.NetworkResult
 import com.android.template.network.Repository
 import com.android.template.others.Cons
 import com.android.template.others.MyUtils
-import com.android.template.userAction.profile.model.ProfileBean
+import com.android.template.userAction.profile.model.GetUserDataBean
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -20,8 +20,11 @@ import javax.inject.Inject
 
 class ProfileVM @Inject constructor(private val repository : Repository) : ViewModel() {
 
-    private val _userUpdate = MutableLiveData<NetworkResult<ProfileBean>>()
-    val userUpdate: LiveData<NetworkResult<ProfileBean>> get() = _userUpdate
+    private val _getUserData = MutableLiveData<NetworkResult<GetUserDataBean>>()
+    val getUserData: LiveData<NetworkResult<GetUserDataBean>> get() = _getUserData
+
+    private val _userUpdate = MutableLiveData<NetworkResult<GetUserDataBean>>()
+    val userUpdate: LiveData<NetworkResult<GetUserDataBean>> get() = _userUpdate
 
     /** Initialize Text Field. */
     var firstName = ObservableField<String>()
@@ -54,6 +57,11 @@ class ProfileVM @Inject constructor(private val repository : Repository) : ViewM
             }
         }
         return valid
+    }
+
+    fun getUserDetails() = viewModelScope.launch {
+        _getUserData.value = NetworkResult.Loading()
+        _getUserData.value = repository.safeApiCall { repository.apiWithToken.getUserDetails() }
     }
 
     fun updateProfile() = viewModelScope.launch {

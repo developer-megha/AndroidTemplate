@@ -2,7 +2,7 @@ package com.android.template.network
 
 import com.google.gson.JsonObject
 import com.android.template.userAction.login.model.LoginBean
-import com.android.template.userAction.profile.model.ProfileBean
+import com.android.template.userAction.profile.model.GetUserDataBean
 import com.android.template.userAction.register.model.SignUpBean
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -37,10 +37,10 @@ interface RetrofitApi {
 
     /** @UpdateProfile API */
     @POST("updateProfile")
-    suspend fun updateProfile(@Body requestBody: RequestBody): Response<ProfileBean>
+    suspend fun updateProfile(@Body requestBody: RequestBody): Response<GetUserDataBean>
 
     /** @UserDetails API */
-    @GET("get_user_details")
-    fun getUserDetails(): Call<JsonObject>
+    @GET("get_user_data")
+    suspend fun getUserDetails(): Response<GetUserDataBean>
 
 }

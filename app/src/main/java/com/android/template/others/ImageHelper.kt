@@ -16,7 +16,7 @@ import java.util.*
 class ImageHelper {
 
     private var sizeString = ""
-    var authority = "com.myapplication.fileprovider"
+    var authority = "com.android.template.fileprovider"
 
     /** create image temporary file and return the file */
     fun createImageFile(context : Context) : File {

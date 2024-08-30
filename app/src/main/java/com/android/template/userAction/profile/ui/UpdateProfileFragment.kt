@@ -2,8 +2,10 @@ package com.android.template.userAction.profile.ui
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +19,15 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.android.template.base.BaseFragment
 import com.android.template.base.Permission
 import com.android.template.base.PermissionManager
+import com.android.template.base.SharedPref
 import com.android.template.databinding.FragmentUpdateProfileBinding
 import com.android.template.dialogs.SelectionMediaDialog
 import com.android.template.dialogs.SuccessErrorDialog
 import com.android.template.network.NetworkResult
+import com.android.template.others.Cons
 import com.android.template.others.CustomWatcher
-import com.android.template.others.ImageHelper
+import com.android.template.others.FileHelper
+import com.android.template.others.ImageUtils
 import com.android.template.others.NameTextWatcher
 import com.android.template.userAction.profile.viewmodel.ProfileVM
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,14 +43,16 @@ class UpdateProfileFragment : BaseFragment() {
     private val TAG = "UpdateProfileFragment"
     private val binding by lazy { FragmentUpdateProfileBinding.inflate(layoutInflater) }
     private val permissionManager = PermissionManager.from(this)
-    private val imageHelper = ImageHelper()
     private var currentPhotoPath = ""
+    private val mimeTypes = arrayOf("image/png", "image/jpeg", "image/jpg", "image/webp", "image/gif")
+    private val sharedPref = SharedPref()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = binding.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
+        viewModel.getUserDetails()
         validateInputType()
         setClicks()
         bindObserver()
@@ -56,12 +63,45 @@ class UpdateProfileFragment : BaseFragment() {
      * show toast according to response
      */
     private fun bindObserver() {
+        viewModel.getUserData.observe(viewLifecycleOwner) {
+            hideLoader()
+            when (it) {
+                is NetworkResult.Success -> {
+                    it.data?.data?.let { data ->
+                        sharedPref.save(Cons.name, data.name)
+                        sharedPref.save(Cons.aboutUser, data.aboutUser)
+                        sharedPref.save(Cons.imagePath, data.imagePath)
+                        viewModel.firstName.set(data.firstName)
+                        viewModel.lastName.set(data.lastName)
+                        viewModel.email.set(data.email)
+                        viewModel.location.set(data.location)
+                        viewModel.phone.set(data.phone)
+                        viewModel.about.set(data.aboutUser)
+                        ImageUtils.loadImage(binding.profileImage, data.imagePath)
+                    }
+                }
+                is NetworkResult.Error -> {
+                    it.message?.let { it1 ->
+                        SuccessErrorDialog(requireContext(), it1, R.drawable.ic_error) {}.show()
+                    }
+                }
+                is NetworkResult.Loading -> {
+                    showLoader()
+                }
+
+                else -> {}
+            }
+        }
+
         viewModel.userUpdate.observe(viewLifecycleOwner) {
             hideLoader()
             when (it) {
                 is NetworkResult.Success -> {
-                    it.data?.message?.let { msg ->
-                        SuccessErrorDialog(requireContext(), msg, R.drawable.ic_success) {
+                    it.data?.let { data ->
+                        SuccessErrorDialog(requireContext(), data.message ?: "Saved", R.drawable.ic_success) {
+                            sharedPref.save(Cons.name, data.data?.name)
+                            sharedPref.save(Cons.aboutUser, data.data?.aboutUser)
+                            sharedPref.save(Cons.imagePath, data.data?.imagePath)
                             activity?.onBackPressedDispatcher?.onBackPressed()
                         }.show()
                     }
@@ -103,40 +143,55 @@ class UpdateProfileFragment : BaseFragment() {
                         }
                 },
                 onGallery = {
-                    permissionManager
-                        .request(Permission.Storage)
-                        .rationale("Storage Permissions are required to select an image")
-                        .checkPermission { granted ->
-                            if (granted) {
-                                takePhotoFromGallery()
+                    if (Build.VERSION.SDK_INT >= 33) {
+                        takePhotoFromGallery()
+                    }
+                    else {
+                        permissionManager
+                            .request(Permission.Storage)
+                            .rationale("Storage Permissions are required to select an image")
+                            .checkPermission { granted ->
+                                if (granted) {
+                                    takePhotoFromGallery()
+                                }
                             }
-                        }
+                    }
                 }
             ).show()
         }
     }
 
     private fun takePhotoFromGallery() {
-        val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        val galleryIntent = if (Build.VERSION.SDK_INT >= 33) {
+            Intent(MediaStore.ACTION_PICK_IMAGES)
+        } else {
+            Intent(Intent.ACTION_PICK)
+        }
+        galleryIntent.type = "image/*"
+        galleryIntent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
         resultLauncher.launch(galleryIntent)
     }
 
     /** for clicking image from camera */
     private fun takePhotoFromCamera() {
-        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        if (takePictureIntent.resolveActivity(requireContext().packageManager) != null) {
+        try {
+            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             var photoFile: File? = null
             try {
-                photoFile = imageHelper.createImageFile(requireContext())
+                photoFile = FileHelper.createImageFile(requireContext())
                 currentPhotoPath = photoFile.absolutePath
             } catch (ex: IOException) {
                 ex.printStackTrace()
             }
             if (photoFile != null) {
-                val photoURI = FileProvider.getUriForFile(requireContext(), imageHelper.authority, photoFile)
+                val photoURI = FileProvider.getUriForFile(requireContext(), getString(R.string.authority), photoFile)
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                 cameraLauncher.launch(takePictureIntent)
             }
+        }
+        catch (e: Exception) {
+            Log.d(TAG, "Issue in takePhotoFromGallery()")
+            e.printStackTrace()
         }
     }
 
@@ -144,23 +199,24 @@ class UpdateProfileFragment : BaseFragment() {
         if (result.resultCode == AppCompatActivity.RESULT_OK) {
             val selectedImageUri: Uri? = result.data?.data
             if (selectedImageUri != null) {
-                imageHelper.uriToFile(requireContext() , selectedImageUri).let { file ->
-                    setImage(binding.profileImage, file!!.absolutePath)
-                }
+                val f = FileHelper.getFileFromUri(activity, selectedImageUri)
+                setImage(binding.profileImage, f)
             }
+            else Log.i(TAG, "selectedImageUri is null")
         }
     }
 
     private var cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == AppCompatActivity.RESULT_OK) {
             val f = File(currentPhotoPath)
-            setImage(binding.profileImage,  f.absolutePath)
+            setImage(binding.profileImage, f)
         }
+        else Log.i(TAG, "Unable to capture image")
     }
 
-    private fun setImage(imageView: ImageView, filePath: String){
-        viewModel.fil = File(filePath)
-        Glide.with(imageView.context).asBitmap().load(filePath).skipMemoryCache(true)
+    private fun setImage(imageView: ImageView, file: File?){
+        viewModel.fil = file
+        Glide.with(imageView.context).asBitmap().load(file?.absolutePath).skipMemoryCache(true)
             .diskCacheStrategy(DiskCacheStrategy.NONE).into(imageView)
     }
 

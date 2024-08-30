@@ -24,8 +24,8 @@ class Cons {
         const val USER_ID = "user_id"
 
         /* Save User Data to SharedPref */
-        const val firstName = "firstName"
-        const val lastName = "lastName"
+        const val firstName = "firstname"
+        const val lastName = "lastname"
         const val name = "userName"
         const val user_email = "user_email"
         const val token = "token"

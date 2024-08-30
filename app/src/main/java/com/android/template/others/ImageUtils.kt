@@ -19,10 +19,10 @@ object ImageUtils {
         circularProgressDrawable.start()
 
         Glide.with(App.get())
-            .load(Cons.BASE_URL + url)
+            .load(Cons.BASE_URL + "images/" + url)
             .centerCrop()
             .placeholder(circularProgressDrawable)
-            .error(R.mipmap.ic_launcher_round)
+            .error(R.drawable.error_image)
             .into(image);
     }
 
@@ -40,7 +40,6 @@ object ImageUtils {
             .centerCrop()
             .fit()
             .noFade()
-            .placeholder(R.mipmap.ic_launcher)
             .error(R.drawable.ic_broken_image)
             .into(ivImage)
     }

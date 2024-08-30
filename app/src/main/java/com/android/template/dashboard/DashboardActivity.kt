@@ -70,8 +70,7 @@ class DashboardActivity : BaseActivity() {
     private fun setNavUserDetails() {
         binding.header.tvNameNavDrawer.text = SharedPref.get().getStringValue(Cons.name)
         binding.header.tvAboutNavDrawer.text = SharedPref.get().getStringValue(Cons.aboutUser)
-        ImageUtils.loadImage(binding.header.profileImageNavDrawer, SharedPref.get().getStringValue(
-            Cons.imagePath))
+        ImageUtils.loadImage(binding.header.profileImageNavDrawer, SharedPref.get().getStringValue(Cons.imagePath))
     }
 
     private fun toggleDrawer() {

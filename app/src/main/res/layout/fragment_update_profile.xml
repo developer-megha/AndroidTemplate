@@ -152,12 +152,11 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etEmailProfile"
                             style="@style/EditTextStyle"
-                            android:editable="false"
+                            android:focusable="false"
                             android:hint="@string/email"
                             android:imeOptions="actionDone"
                             android:text="@={viewModel.email}"
-                            android:maxLines="1"
-                            tools:ignore="Deprecated" />
+                            android:maxLines="1" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
